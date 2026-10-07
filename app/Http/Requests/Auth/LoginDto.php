@@ -12,6 +12,7 @@ class LoginDto extends Data
     public function __construct(
         public string $login,
         public string $password,
+        public bool   $rememberMe,
     )
     {
     }
