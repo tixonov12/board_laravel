@@ -9,10 +9,9 @@ class CheckAuthAction
 {
     public function __invoke(LoginDto $dto): bool
     {
-        return Auth::guard('web')
-            ->attempt([
-                'login' => $dto->login,
-                'password' => $dto->password,
-            ], $dto->rememberMe);
+        return Auth::attempt([
+            'login' => $dto->login,
+            'password' => $dto->password,
+        ], $dto->rememberMe);
     }
 }
