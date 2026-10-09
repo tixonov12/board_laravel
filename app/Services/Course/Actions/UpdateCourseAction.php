@@ -11,7 +11,7 @@ class UpdateCourseAction
     {
         $course->update([
             'name' => $dto->name,
-            'total_tasks' => $dto->totalTasks,
+            'total_tasks' => $dto->totalTasks ?? 0,
         ]);
     }
 }

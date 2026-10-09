@@ -13,7 +13,7 @@ class UpdateCourseDto extends Data
     public function __construct(
         public string $name,
         #[Min(0)]
-        public ?int   $totalTasks = 0,
+        public ?int   $totalTasks,
     )
     {
     }
