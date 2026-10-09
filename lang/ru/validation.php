@@ -162,5 +162,7 @@ return [
     'attributes' => [
         'login' => 'логин',
         'password' => 'пароль',
+        'name' => 'название',
+        'total_tasks' => 'количество заданий',
     ],
 ];
