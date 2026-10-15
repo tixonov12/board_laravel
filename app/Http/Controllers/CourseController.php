@@ -40,6 +40,13 @@ class CourseController extends Controller
         return response()->json(new CourseResource($course));
     }
 
+    public function destroy(Course $course): JsonResponse
+    {
+        $course->delete();
+
+        return response()->json([], 204);
+    }
+
     public function show(Course $course): JsonResponse
     {
         return response()->json(new CourseResource($course));
