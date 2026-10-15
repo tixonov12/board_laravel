@@ -18,7 +18,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/my/courses', [CourseUserController::class, 'index']);
     Route::post('/my/courses/{course}/add', [CourseUserController::class, 'add']);
     Route::post('/my/courses/{course}/remove', [CourseUserController::class, 'remove']);
+    Route::post('/my/courses/add', [CourseUserController::class, 'addCourse']);
 
+    Route::get('/courses', [CourseController::class, 'index']);
     Route::get('/courses/{course}', [CourseController::class, 'show']);
     Route::patch('/courses/{course}', [CourseController::class, 'update']);
 });

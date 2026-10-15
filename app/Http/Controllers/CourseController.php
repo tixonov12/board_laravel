@@ -10,6 +10,13 @@ use Illuminate\Http\JsonResponse;
 
 class CourseController extends Controller
 {
+    public function index(): JsonResponse
+    {
+        $courses = Course::latest()->get();
+
+        return response()->json(CourseResource::collection($courses));
+    }
+
     public function update(
         Course             $course,
         UpdateCourseDto    $dto,

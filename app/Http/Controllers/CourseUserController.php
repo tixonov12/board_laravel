@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Course\AddCourseDto;
 use App\Http\Resources\CourseResource;
 use App\Models\Course;
 use App\Services\Course\Actions\ChangeCompletedTaskAction;
@@ -36,5 +37,12 @@ class CourseUserController extends Controller
         $userCourse = $changeCompletedTaskAction($course, ChangeCompletedTaskEnum::REMOVE);
 
         return response()->json(new CourseResource($userCourse));
+    }
+
+    public function addCourse(AddCourseDto $dto): JsonResponse
+    {
+        Auth::user()->courses()->attach($dto->courseId);
+
+        return response()->json(['success' => true]);
     }
 }
