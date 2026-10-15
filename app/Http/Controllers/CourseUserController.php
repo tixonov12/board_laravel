@@ -45,4 +45,11 @@ class CourseUserController extends Controller
 
         return response()->json(['success' => true]);
     }
+
+    public function removeCourse(Course $course): JsonResponse
+    {
+        Auth::user()->courses()->detach($course->id);
+
+        return response()->json([], 204);
+    }
 }
