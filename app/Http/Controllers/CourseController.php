@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Course\CreateCourseDto;
 use App\Http\Requests\Course\UpdateCourseDto;
 use App\Http\Resources\CourseResource;
 use App\Models\Course;
+use App\Services\Course\Actions\CreateCourseAction;
 use App\Services\Course\Actions\UpdateCourseAction;
 use Illuminate\Http\JsonResponse;
 
@@ -15,6 +17,16 @@ class CourseController extends Controller
         $courses = Course::latest()->get();
 
         return response()->json(CourseResource::collection($courses));
+    }
+
+    public function store(
+        CreateCourseDto    $dto,
+        CreateCourseAction $createCourseAction,
+    ): JsonResponse
+    {
+        $course = $createCourseAction($dto);
+
+        return response()->json(new CourseResource($course));
     }
 
     public function update(
