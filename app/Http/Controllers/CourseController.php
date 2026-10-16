@@ -26,7 +26,7 @@ class CourseController extends Controller
     {
         $course = $createCourseAction($dto);
 
-        return response()->json(new CourseResource($course));
+        return response()->json(new CourseResource($course), 201);
     }
 
     public function update(
