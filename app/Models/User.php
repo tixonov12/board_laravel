@@ -21,6 +21,11 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
+    public function hasCourse(int $courseId): bool
+    {
+        return $this->courses()->where('courses.id', $courseId)->exists();
+    }
+
     public function courses(): BelongsToMany
     {
         return $this->belongsToMany(Course::class)

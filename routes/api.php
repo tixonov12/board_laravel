@@ -18,8 +18,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/my/courses', [CourseUserController::class, 'index']);
     Route::post('/my/courses/{course}/add', [CourseUserController::class, 'add']);
     Route::post('/my/courses/{course}/remove', [CourseUserController::class, 'remove']);
-    Route::post('/my/courses/add', [CourseUserController::class, 'addCourse']);
-    Route::delete('/my/courses/{course}', [CourseUserController::class, 'removeCourse']);
+    Route::post('/my/courses/{course}/join', [CourseUserController::class, 'join']);
+    Route::delete('/my/courses/{course}/leave', [CourseUserController::class, 'leave']);
 
     Route::get('/courses', [CourseController::class, 'index']);
     Route::post('/courses', [CourseController::class, 'store']);

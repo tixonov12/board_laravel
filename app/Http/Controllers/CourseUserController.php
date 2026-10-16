@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\Course\AddCourseDto;
 use App\Http\Resources\CourseResource;
 use App\Models\Course;
 use App\Services\Course\Actions\ChangeCompletedTaskAction;
+use App\Services\Course\Actions\JoinCourseAction;
+use App\Services\Course\Actions\LeaveCourseAction;
 use App\Services\Course\Enums\ChangeCompletedTaskEnum;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
@@ -39,16 +40,34 @@ class CourseUserController extends Controller
         return response()->json(new CourseResource($userCourse));
     }
 
-    public function addCourse(AddCourseDto $dto): JsonResponse
+    public function join(
+        Course           $course,
+        JoinCourseAction $joinCourseAction,
+    ): JsonResponse
     {
-        Auth::user()->courses()->attach($dto->courseId);
+        $user = Auth::user();
 
-        return response()->json(['success' => true]);
+        if ($user->hasCourse($course->id)) {
+            return response()->json(['message' => 'Course already added'], 409);
+        }
+
+        $joinCourseAction($user, $course->id);
+
+        return response()->json(new CourseResource($course));
     }
 
-    public function removeCourse(Course $course): JsonResponse
+    public function leave(
+        Course            $course,
+        LeaveCourseAction $leaveCourseAction,
+    ): JsonResponse
     {
-        Auth::user()->courses()->detach($course->id);
+        $user = Auth::user();
+
+        if (!$user->hasCourse($course->id)) {
+            return response()->json(['message' => 'Not enrolled in this course'], 404);
+        }
+
+        $leaveCourseAction($user, $course->id);
 
         return response()->json([], 204);
     }
