@@ -9,12 +9,15 @@ use App\Models\Course;
 use App\Services\Course\Actions\CreateCourseAction;
 use App\Services\Course\Actions\UpdateCourseAction;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Auth;
 
 class CourseController extends Controller
 {
     public function index(): JsonResponse
     {
-        $courses = Course::latest()->get();
+        $courses = Course::latest()
+            ->withExists(['users as has_course' => fn($q) => $q->where('users.id', Auth::id())])
+            ->get();
 
         return response()->json(CourseResource::collection($courses));
     }

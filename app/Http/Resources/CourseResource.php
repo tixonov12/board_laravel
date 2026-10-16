@@ -15,7 +15,8 @@ class CourseResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'total_tasks' => $this->total_tasks,
-            'completed_tasks' => $this->completed_tasks,
+            'completed_tasks' => $this->whenPivotLoaded('course_user', fn() => $this->pivot->completed_tasks),
+            'has_course' => $this->whenHas('has_course', fn() => $this->has_course),
         ];
     }
 }
