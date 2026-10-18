@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\CourseResource;
+use App\Http\Resources\Course\CourseCollection;
+use App\Http\Resources\Course\CourseResource;
 use App\Models\Course;
 use App\Services\Course\Actions\ChangeCompletedTaskAction;
 use App\Services\Course\Actions\JoinCourseAction;
@@ -13,11 +14,13 @@ use Illuminate\Support\Facades\Auth;
 
 class CourseUserController extends Controller
 {
-    public function index(): JsonResponse
+    public function index(): CourseCollection
     {
-        $courses = Auth::user()->courses()->latest()->get();
+        $courses = Auth::user()->courses()
+            ->latest()
+            ->paginate(6);
 
-        return response()->json(CourseResource::collection($courses));
+        return new CourseCollection($courses);
     }
 
     public function add(

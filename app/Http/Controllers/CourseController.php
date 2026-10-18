@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Course\CreateCourseDto;
 use App\Http\Requests\Course\UpdateCourseDto;
-use App\Http\Resources\CourseResource;
+use App\Http\Resources\Course\CourseCollection;
+use App\Http\Resources\Course\CourseResource;
 use App\Models\Course;
 use App\Services\Course\Actions\CreateCourseAction;
 use App\Services\Course\Actions\UpdateCourseAction;
@@ -13,13 +14,13 @@ use Illuminate\Support\Facades\Auth;
 
 class CourseController extends Controller
 {
-    public function index(): JsonResponse
+    public function index(): CourseCollection
     {
-        $courses = Course::latest()
-            ->withExists(['users as has_course' => fn($q) => $q->where('users.id', Auth::id())])
-            ->get();
+        $courses = Course::withExists(['users as has_course' => fn($q) => $q->where('users.id', Auth::id())])
+            ->latest()
+            ->paginate(8);
 
-        return response()->json(CourseResource::collection($courses));
+        return new CourseCollection($courses);
     }
 
     public function store(
