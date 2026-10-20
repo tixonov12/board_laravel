@@ -23,7 +23,7 @@ class CourseUserController extends Controller
         return new CourseCollection($courses);
     }
 
-    public function add(
+    public function completeTask(
         Course                    $course,
         ChangeCompletedTaskAction $changeCompletedTaskAction,
     ): JsonResponse
@@ -33,7 +33,7 @@ class CourseUserController extends Controller
         return response()->json(new CourseResource($userCourse));
     }
 
-    public function remove(
+    public function uncompleteTask(
         Course                    $course,
         ChangeCompletedTaskAction $changeCompletedTaskAction,
     )

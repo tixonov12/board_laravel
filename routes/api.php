@@ -16,8 +16,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/me', [UserController::class, 'me']);
 
     Route::get('/my/courses', [CourseUserController::class, 'index']);
-    Route::post('/my/courses/{course}/add', [CourseUserController::class, 'add']);
-    Route::post('/my/courses/{course}/remove', [CourseUserController::class, 'remove']);
+    Route::post('/my/courses/{course}/complete', [CourseUserController::class, 'completeTask']);
+    Route::delete('/my/courses/{course}/complete', [CourseUserController::class, 'uncompleteTask']);
     Route::post('/my/courses/{course}/join', [CourseUserController::class, 'join']);
     Route::delete('/my/courses/{course}/leave', [CourseUserController::class, 'leave']);
 
