@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\Storage;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
@@ -20,6 +22,13 @@ class User extends Authenticatable
     protected $casts = [
         'password' => 'hashed',
     ];
+
+    protected function avatarUrl(): Attribute
+    {
+        return Attribute::make(
+            get: fn() => Storage::disk('public')->url($this->avatar),
+        );
+    }
 
     public function hasCourse(int $courseId): bool
     {
