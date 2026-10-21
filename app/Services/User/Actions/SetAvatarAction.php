@@ -10,7 +10,7 @@ class SetAvatarAction
 {
     public function __invoke(UploadedFile $avatar, User $user): string
     {
-        if (Storage::disk('public')->exists($user->avatar)) {
+        if ($user->avatar && Storage::disk('public')->exists($user->avatar)) {
             Storage::disk('public')->delete($user->avatar);
         }
 
