@@ -18,7 +18,7 @@ class CourseController extends Controller
     {
         $courses = Course::withExists(['users as has_course' => fn($q) => $q->where('users.id', Auth::id())])
             ->latest()
-            ->paginate(8);
+            ->cursorPaginate(16);
 
         return new CourseCollection($courses);
     }

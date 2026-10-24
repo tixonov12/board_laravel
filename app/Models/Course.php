@@ -20,6 +20,7 @@ class Course extends Model
     public function users(): BelongsToMany
     {
         return $this->belongsToMany(User::class)
-            ->withPivot('completed_tasks');
+            ->withPivot('completed_tasks')
+            ->withTimestamps();
     }
 }

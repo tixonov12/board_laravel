@@ -17,8 +17,8 @@ class CourseUserController extends Controller
     public function index(): CourseCollection
     {
         $courses = Auth::user()->courses()
-            ->latest()
-            ->paginate(6);
+            ->orderByDesc('course_user.created_at')
+            ->cursorPaginate(6);
 
         return new CourseCollection($courses);
     }

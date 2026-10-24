@@ -21,7 +21,7 @@ class CourseCollection extends ResourceCollection
     {
         return [
             'meta' => [
-                'last_page' => $paginated['last_page'],
+                'next_cursor' => $paginated['next_cursor'] ?? null,
             ],
         ];
     }
