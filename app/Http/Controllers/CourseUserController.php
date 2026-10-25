@@ -18,7 +18,7 @@ class CourseUserController extends Controller
     {
         $courses = Auth::user()->courses()
             ->orderByDesc('course_user.created_at')
-            ->cursorPaginate(6);
+            ->cursorPaginate(10);
 
         return new CourseCollection($courses);
     }
