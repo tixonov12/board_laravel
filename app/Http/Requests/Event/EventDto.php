@@ -14,9 +14,9 @@ class EventDto extends Data
 {
     public function __construct(
         public string  $title,
-        #[WithCast(DateTimeInterfaceCast::class, format: 'Y-m-d\TH:i')]
+        #[WithCast(DateTimeInterfaceCast::class, format: 'Y-m-d\TH:i:s.uP')]
         public Carbon  $start,
-        #[WithCast(DateTimeInterfaceCast::class, format: 'Y-m-d\TH:i')]
+        #[WithCast(DateTimeInterfaceCast::class, format: 'Y-m-d\TH:i:s.uP')]
         public ?Carbon $end,
         public ?string $color,
     )
