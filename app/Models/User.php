@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Facades\Storage;
 use Laravel\Sanctum\HasApiTokens;
@@ -40,5 +41,10 @@ class User extends Authenticatable
         return $this->belongsToMany(Course::class)
             ->withPivot('completed_tasks')
             ->withTimestamps();
+    }
+
+    public function events(): HasMany
+    {
+        return $this->hasMany(Event::class, 'user_id');
     }
 }
